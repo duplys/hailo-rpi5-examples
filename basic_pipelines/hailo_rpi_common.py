@@ -156,6 +156,8 @@ def get_source_type(input_source):
     else:
         if input_source.startswith("rpi"):
             return 'rpi'
+        elif input_source.lower().endswith(('.jpg', '.jpeg', '.png', '.bmp')):
+            return 'image'
         else:
             return 'file'
 
@@ -201,6 +203,11 @@ def SOURCE_PIPELINE(video_source, video_format='RGB', video_width=640, video_hei
         source_element = (
             f'v4l2src device={video_source} name={name} ! '
             'video/x-raw, width=640, height=480 ! '
+        )
+    elif source_type == 'image':
+        source_element = (
+            f'filesrc location={video_source} name={name} ! '
+            'decodebin ! videoconvert ! '
         )
     else:
         source_element = (
