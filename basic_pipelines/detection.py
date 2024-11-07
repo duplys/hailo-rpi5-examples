@@ -58,9 +58,10 @@ def app_callback(pad, info, user_data):
     for detection in detections:
         label = detection.get_label()
         bbox = detection.get_bbox()
+
         confidence = detection.get_confidence()
         if label == "person":
-            string_to_print += f"Detection: {label} {confidence:.2f}\n"
+            string_to_print += f"Detection: {label} {confidence:.2f} -- x_max={bbox.xmax():.2f}, y_max={bbox.ymax():.2f}, x_min={bbox.xmin():.2f}, y_min={bbox.ymin():.2f}, height={bbox.height():.2f}, width={bbox.width():.2f} \n"
             detection_count += 1
     if user_data.use_frame:
         # Note: using imshow will not work here, as the callback function is not running in the main thread
