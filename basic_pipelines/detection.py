@@ -80,5 +80,13 @@ def app_callback(pad, info, user_data):
 if __name__ == "__main__":
     # Create an instance of the user app callback class
     user_data = user_app_callback_class()
-    app = GStreamerDetectionApp(app_callback, user_data)
+
+    # Check if running over SSH
+    if os.environ.get('SSH_CLIENT') or os.environ.get('SSH_TTY'):
+        video_sink = "fakesink"
+    else:
+        video_sink = "xvimagesink"
+
+    app = GStreamerDetectionApp(app_callback, user_data, video_sink)
     app.run()
+    

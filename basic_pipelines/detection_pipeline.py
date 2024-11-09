@@ -31,7 +31,7 @@ from hailo_rpi_common import (
 
 # This class inherits from the hailo_rpi_common.GStreamerApp class
 class GStreamerDetectionApp(GStreamerApp):
-    def __init__(self, app_callback, user_data):
+    def __init__(self, app_callback, user_data, video_sink="xvimagesink"):
         parser = get_default_parser()
         parser.add_argument(
             "--labels-json",

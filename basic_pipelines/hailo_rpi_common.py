@@ -349,7 +349,7 @@ def USER_CALLBACK_PIPELINE(name='identity_callback'):
 # GStreamerApp class
 # -----------------------------------------------------------------------------------------------
 class GStreamerApp:
-    def __init__(self, args, user_data: app_callback_class):
+    def __init__(self, args, user_data: app_callback_class, video_sink='xvimagesink'):
         # Set the process title
         setproctitle.setproctitle("Hailo Python App")
 
@@ -369,7 +369,7 @@ class GStreamerApp:
         self.video_source = self.options_menu.input
         self.source_type = get_source_type(self.video_source)
         self.user_data = user_data
-        self.video_sink = "xvimagesink"
+        self.video_sink = video_sink
         self.pipeline = None
         self.loop = None
 
