@@ -40,7 +40,7 @@ class GStreamerDetectionApp(GStreamerApp):
         )
         args = parser.parse_args()
         # Call the parent class constructor
-        super().__init__(args, user_data)
+        super().__init__(args, user_data, video_sink)
         # Additional initialization code can be added here
         # Set Hailo parameters these parameters should be set based on the model used
         self.batch_size = 2
