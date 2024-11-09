@@ -62,6 +62,7 @@ def app_callback(pad, info, user_data):
         confidence = detection.get_confidence()
         if label == "person":
             string_to_print += f"Detection: {label} {confidence:.2f} -- x_max={bbox.xmax():.2f}, y_max={bbox.ymax():.2f}, x_min={bbox.xmin():.2f}, y_min={bbox.ymin():.2f}, height={bbox.height():.2f}, width={bbox.width():.2f} \n"
+            coco_string = f"{label} {confidence:.2f} -- x_min={bbox.xmin():.2f}, y_max={bbox.ymax():.2f}, width={bbox.width():.2f}, height={bbox.height():.2f}"
             detection_count += 1
     if user_data.use_frame:
         # Note: using imshow will not work here, as the callback function is not running in the main thread
@@ -75,6 +76,7 @@ def app_callback(pad, info, user_data):
         user_data.set_frame(frame)
 
     print(string_to_print)
+    print(coco_string)
     return Gst.PadProbeReturn.OK
 
 if __name__ == "__main__":
@@ -89,4 +91,3 @@ if __name__ == "__main__":
 
     app = GStreamerDetectionApp(app_callback, user_data, video_sink)
     app.run()
-    
