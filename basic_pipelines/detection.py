@@ -39,6 +39,7 @@ def app_callback(pad, info, user_data):
     # Using the user_data to count the number of frames
     user_data.increment()
     string_to_print = f"Frame count: {user_data.get_count()}\n"
+    coco_string = f"Frame count: {user_data.get_count()}\n"
 
     # Get the caps from the pad
     format, width, height = get_caps_from_pad(pad)
@@ -62,7 +63,7 @@ def app_callback(pad, info, user_data):
         confidence = detection.get_confidence()
         if label == "person":
             string_to_print += f"Detection: {label} {confidence:.2f} -- x_max={bbox.xmax():.2f}, y_max={bbox.ymax():.2f}, x_min={bbox.xmin():.2f}, y_min={bbox.ymin():.2f}, height={bbox.height():.2f}, width={bbox.width():.2f} \n"
-            coco_string = f"{label} {confidence:.2f} -- x_min={bbox.xmin():.2f}, y_max={bbox.ymax():.2f}, width={bbox.width():.2f}, height={bbox.height():.2f}"
+            coco_string += f"{label} {confidence:.2f} -- x_min={bbox.xmin():.2f}, y_max={bbox.ymax():.2f}, width={bbox.width():.2f}, height={bbox.height():.2f}\n"
             detection_count += 1
     if user_data.use_frame:
         # Note: using imshow will not work here, as the callback function is not running in the main thread
