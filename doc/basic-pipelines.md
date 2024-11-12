@@ -66,15 +66,23 @@ python basic_pipelines/detection.py
 ```
 - To close the application, press `Ctrl+C`.
 #### Example For Using USB camera input:
-   Detect the available camera using this script:
-  ```bash
-  python basic_pipelines/get_usb_camera.py
-  ```
-  Run example using USB camera - Use the device found by the previous script:
+Detect the available camera using this script:
 
-  ```bash
-  python basic_pipelines/detection.py --input /dev/video<X>
-  ```
+```bash
+python basic_pipelines/get_usb_camera.py
+```
+
+Run example using USB camera - Use the device found by the previous script:
+
+```bash
+python basic_pipelines/detection.py --input /dev/video<X>
+```
+
+Run detection on an image:
+
+```bash
+python basic_pipeline/detection.py --input </path/to/image>.{jpg|jpeg|png|bmp}
+```
 
 For additional options, execute:
 ```bash

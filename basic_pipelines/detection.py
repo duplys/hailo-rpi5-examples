@@ -39,7 +39,7 @@ def app_callback(pad, info, user_data):
     # Using the user_data to count the number of frames
     user_data.increment()
     string_to_print = f"Frame count: {user_data.get_count()}\n"
-    coco_string = f"Frame count: {user_data.get_count()}\n"
+    coco_string = f"COCO Frame count: {user_data.get_count()}\n"
 
     # Get the caps from the pad
     format, width, height = get_caps_from_pad(pad)
@@ -58,6 +58,7 @@ def app_callback(pad, info, user_data):
     detection_count = 0
     for detection in detections:
         label = detection.get_label()
+        print("label: ", label)
         bbox = detection.get_bbox()
 
         confidence = detection.get_confidence()
