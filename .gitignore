@@ -161,3 +161,7 @@ venv_hailo_rpi5_examples/*
 resources/*.mp4
 resources/*.hef
 resources/*.so
+
+
+# VS Code settings, e.g., launch.json for Python debugger
+.vscode/

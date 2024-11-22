@@ -65,6 +65,7 @@ Run the detection example:
 python basic_pipelines/detection.py
 ```
 - To close the application, press `Ctrl+C`.
+
 #### Example For Using USB camera input:
 Detect the available camera using this script:
 
@@ -78,11 +79,19 @@ Run example using USB camera - Use the device found by the previous script:
 python basic_pipelines/detection.py --input /dev/video<X>
 ```
 
-Run detection on an image:
+If you want to run detection on an image, the easiest way seems to be to first convert it to a video.
 
 ```bash
-python basic_pipeline/detection.py --input </path/to/image>.{jpg|jpeg|png|bmp}
+sudo apt-get install ffmpeg
+ffmpeg -framerate 30 -i test%03d.jpg -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -pix_fmt yuv420p output.mp4
 ```
+
+The above command assumes that the images are named img001.jpg, img002.jpg, img003.jpg and so on.
+
+```bash
+python basic_pipelines/detection.py --input output.mp4
+```
+
 
 For additional options, execute:
 ```bash

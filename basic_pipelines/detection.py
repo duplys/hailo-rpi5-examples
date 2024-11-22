@@ -31,6 +31,9 @@ class user_app_callback_class(app_callback_class):
 # This is the callback function that will be called when data is available from the pipeline
 def app_callback(pad, info, user_data):
     # Get the GstBuffer from the probe info
+    #print("Type of info:", type(info))
+    #print("Type of buffer: ", type(info.get_buffer()))
+    #exit()
     buffer = info.get_buffer()
     # Check if the buffer is valid
     if buffer is None:
@@ -40,12 +43,19 @@ def app_callback(pad, info, user_data):
     user_data.increment()
     string_to_print = f"Frame count: {user_data.get_count()}\n"
     coco_string = f"COCO Frame count: {user_data.get_count()}\n"
+    print(f"Frame count: {user_data.get_count()}")
 
     # Get the caps from the pad
     format, width, height = get_caps_from_pad(pad)
 
     # If the user_data.use_frame is set to True, we can get the video frame from the buffer
     frame = None
+    print(f"user_data.use_frame: {user_data.use_frame}")
+    print(user_data.get_frame())
+    print(f"format: {format}")
+    print(f"width: {width}")
+    print(f"height: {height}")
+    user_data.use_frame = True
     if user_data.use_frame and format is not None and width is not None and height is not None:
         # Get video frame
         frame = get_numpy_from_buffer(buffer, format, width, height)
@@ -90,6 +100,8 @@ if __name__ == "__main__":
         video_sink = "fakesink"
     else:
         video_sink = "xvimagesink"
+
+    print("\n\nStarting detection pipeline")
 
     app = GStreamerDetectionApp(app_callback, user_data, video_sink)
     app.run()
